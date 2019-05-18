@@ -27,6 +27,8 @@ public class DemoPhysicalLayer {
     hostX.install(lan1, "0.0.0.4");
 
     hostX.install(lan2, "0.0.1.1");
+    
+    hostA.install(lan2, "0.0.1.3");
 
     Host hostY = new Host("Y");
 
@@ -73,14 +75,22 @@ public class DemoPhysicalLayer {
     } catch (InterruptedException e) {
     }
 
-    hostX.send("0.0.1.1", "0.0.0.1", new PhysicalPayload() {
+    hostX.send("0.0.1.1", "0.0.1.3", new PhysicalPayload() {
 
 		@Override
 		public void process(Host host) {
-			System.out.println("A new message from 0.0.1.1 to 0.0.0.1 was received");
+			System.out.println("A new message from 0.0.1.1 to 0.0.1.3 was received");
 			
 		}});
+    
+    hostY.send("0.0.1.2", "0.0.1.3", new PhysicalPayload() {
 
+		@Override
+		public void process(Host host) {
+			System.out.println("A new message from 0.0.1.2 to 0.0.1.3 was received");
+			
+		}});
+    
     try {
         Thread.sleep(1000);
     } catch (InterruptedException e) {
